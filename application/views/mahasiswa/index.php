@@ -4,7 +4,6 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-
     <?php if (validation_errors()) : ?>
         <div class="alert alert-danger" role="alert">
             <?= validation_errors(); ?>
@@ -12,10 +11,8 @@
     <?php endif; ?>
 
     <?= $this->session->flashdata('message'); ?>
-    <?= $this->session->flashdata('flash'); ?>
 
-
-    <!-- DataTables Mahasiswa -->
+    <!-- Start DataTables Mahasiswa -->
     <div class="card shadow">
         <div class="card-header pt-3">
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMahasiswaModal"><i class="fa fa-user-plus mr-3"></i>Add New Mahasiswa</a>
@@ -47,13 +44,17 @@
                                 <td><?= $mhs['alamat'] ?></td>
                                 <td><?= $mhs['email'] ?></td>
                                 <td>
+                                    <!-- Start Button tambahMahasiswa -->
                                     <a class="btn btn-primary btn-sm" href="<?= site_url('mahasiswa/ubahmhs/' . $mhs['id']) ?>" role="button">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
+                                    <!-- End Button tambahMahasiswa -->
 
-                                    <a class="btn btn-danger btn-sm" href="<?= site_url('mahasiswa/hapusmhs/' . $mhs['id']) ?>" onclick="return confirm('Are you sure?')">
+                                    <!-- Start Modal hapusMahasiswa -->
+                                    <a class="btn btn-danger btn-sm" href="#modalDelete" onclick="$('#modalDelete #formDelete').attr('action', '<?= site_url('mahasiswa/hapusmhs/' . $mhs['id']) ?>')" data-toggle="modal" data-target="">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
+                                    <!-- End Modal hapusMahasiswa -->
                                 </td>
                             </tr>
                             <?php $i++; ?>
@@ -64,6 +65,7 @@
             </div>
         </div>
     </div>
+    <!-- End DataTables Mahasiswa -->
 
 </div>
 <!-- /.container-fluid -->
@@ -72,7 +74,7 @@
 <!-- End of Main Content -->
 
 
-<!-- Modal Tambah Mahasiswa-->
+<!-- Modal tambahMahasiswa-->
 <div class="modal fade" id="newMahasiswaModal" tabindex="-1" role="dialog" aria-labelledby="newMahasiswaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,4 +116,25 @@
         </div>
     </div>
 </div>
-<!-- End Modal Tambah Mahasiswa-->
+<!-- End Modal tambahMahasiswa-->
+
+<!-- Modal deleteMahasiswa -->
+<div class="modal fade" id="modalDelete">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <form action="" method="post" id="formDelete">
+                    <button class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button class="btn btn-danger" type="submit">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal deleteMahasiswa -->
